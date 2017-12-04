@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Giphy API</title>
+</head>
+
+<body>
+    <div id="button-area"></div>
+
+    <form id="topics-form">
+        <label for="topic-input">Add a new Giphy topic!</label>
+        <input type="text" id="topic-input">
+        <br>
+        <div id="gif-area"></div>
+
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script type="text/javascript">
+
+            var topics = ["elf", "dwarf", "warrior", "wizard", "goblin", "orc", "ogre", "knight"];
+
+            var topic = $(this).attr("data-name");
+            var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=hbRnvVA2snUX7cYCkX6yeNlyqCr6xKhE&q=" + topic + "&limit=10&offset=0&rating=G&lang=en";
+
+            $("button").on("click", function () {
+
+                $.ajax({
+                    url: queryURL,
+                    method: "GET"
+                })
+
+                    .done(function (response) {
+                        var results = response.data;
+
+                        for (var i = 0; i < results.length; i++) {
+                            if (results[i].rating !== "r" && results[i].rating !== "pg-13") {
+                                var gifDiv = $("<div class= 'item'>");
+
+                                var rating = results[i].rating;
+
+                                var p = $("<p>").text("Rating: " + rating);
+
+                                var image = $("<img>");
+
+                                image.attr("src", results[i].images.fixed_height.url);
+
+                                gifDiv.append(p);
+                                gifDiv.append(image);
+
+                                $("#gif-area").prepend(gifDiv);
+                            }
+                        }
+                    });
+            });
+            // creates the buttons from the array
+            function renderButtons() {
+
+                // Deleting the buttons prior to adding new movie buttons
+                // (this is necessary otherwise we will have repeat buttons)
+                $("#button-area").empty();
+
+                for (var i = 0; i < topics.length; i++) {
+
+                    var a = $("<button>");
+                    // Adding a class
+                    a.addClass("topic");
+                    // Adding a data-attribute at index i
+                    a.attr("data-name", topics[i]);
+                    // Providing the button's text with a value at index i
+                    a.text(topics[i]);
+                    // Adding the button to the HTML
+                    $("#button-area").append(a);
+                }
+            }
+
+            renderButtons();
+
+
+        </script>
+
+</body>
+
+</html>
