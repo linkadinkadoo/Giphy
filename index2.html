@@ -10,7 +10,7 @@
     <div id="button-area"></div>
 
     <form id="topics-form">
-        <label for="topic-input">Add a new Giphy topic!</label>
+        <label for="topic-input">Search for GIFs!</label>
         <input type="text" id="topic-input">
         <br>
         <div id="gif-area"></div>
@@ -22,9 +22,12 @@
             var topics = ["elf", "dwarf", "warrior", "wizard", "goblin", "orc", "ogre", "knight"];
 
             var topic = $(this).attr("data-name");
+            
             var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=hbRnvVA2snUX7cYCkX6yeNlyqCr6xKhE&q=" + topic + "&limit=10&offset=0&rating=G&lang=en";
 
             $("button").on("click", function () {
+
+                var movie = $("#movie-input").val().trim();
 
                 $.ajax({
                     url: queryURL,
@@ -44,7 +47,7 @@
 
                                 var image = $("<img>");
 
-                                image.attr("src", results[i].images.fixed_height.url);
+                                image.attr("src", results[i].images["480w_still"].url);
 
                                 gifDiv.append(p);
                                 gifDiv.append(image);

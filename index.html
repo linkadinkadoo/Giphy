@@ -2,111 +2,128 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <title>Giphy API</title>
+    <meta charset="utf-8">
+    <title>Giphy API</title>
+    <link rel="stylesheet" href="assets/style.css">
 </head>
 
 <body>
-<div id="button-area"></div>
+    <div id="button-area"></div>
+    <br>
 
-<form id="topics-form">
-        <label for="topic-input">Add a new Giphy topic!</label>
-        <input type="text" id="topic-input"><br>
-<div id="gif-area"></div>
-
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script type="text/javascript">
-    // Example queryURL for Giphy API
-    // var queryURL = "https://api.giphy.com/v1/gifs/trending?api_key=dc6zaTOxFJmzC";
-
-    var topics = ["elf", "dwarf", "warrior", "wizard", "goblin", "orc", "ogre", "knight"];
-
-    // renders the gifs to the page
-function displayGifs() {
-    var topic = $(this).attr("data-name");
-    var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=hbRnvVA2snUX7cYCkX6yeNlyqCr6xKhE&q=" + topic + "&limit=10&offset=0&rating=G&lang=en";
-
-    $.ajax({
-      url: queryURL,
-      method: 'GET'
-    }).done(function(response) {
-        console.log(response);
-    //   console.log(response.data[0].images + "480w_still");
-
-        // Creating a div to hold the movie
-        // var movieDiv = $("<div class='movie'>");
-        var gifDiv = $("#gif-area");
-
-          // Storing the rating data
-          var rating = response.data[].rating;
-
-          // Creating an element to have the rating displayed
-          var pOne = $("<p>").text("Rating: " + rating);
-
-          // Displaying the rating
-          gifDiv.append(pOne);
-
-          // Retrieving the URL for the image
-          var imgURL = response.data[] + "480w_still";
-
-          // Creating an element to hold the image
-          var image = $("<img>").attr("src", imgURL);
-
-          // Appending the image
-          gifDiv.append(image);
-
-          // Putting the entire movie above the previous movies
-          $("#gif-area").prepend(gifDiv);
-        });
-    }
+    <form id="topics-form">
+        <label for="topic-input">GIF search:</label>
+        <input type="text" id="topic-input">
+        <br>
+        <div id="gif-area"></div>
 
 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script type="text/javascript">
+            // Example queryURL for Giphy API
+            // var queryURL = "https://api.giphy.com/v1/gifs/trending?api_key=dc6zaTOxFJmzC";
 
-    function renderButtons() {
+            var topics = ["elf", "dwarf", "warrior", "wizard", "goblin", "orc", "ogre", "knight"];
 
-        // Deleting the movie buttons prior to adding new movie buttons
-        // (this is necessary otherwise we will have repeat buttons)
-        $("#button-area").empty();
+            $(document).on("click", ".topic", displayGifs);
 
-        for (var i = 0; i < topics.length; i++){
-        
-            var a = $("<button>");
-            // Adding a class
-            a.addClass("topic");
-            // Adding a data-attribute at index i
-            a.attr("data-name", topics[i]);
-            // Providing the button's text with a value at index i
-            a.text(topics[i]);
-            // Adding the button to the HTML
-            $("#button-area").append(a);
-        }
-    }
+            // renders the gifs to the page
+            function displayGifs() {
+                var topic = $(this).attr("data-name");
+                var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=hbRnvVA2snUX7cYCkX6yeNlyqCr6xKhE&q=" + topic + "&limit=11&offset=0&rating=G&lang=en";
+                console.log("queryURL is: " + queryURL);
 
-    
+                $.ajax({
+                    url: queryURL,
+                    method: 'GET'
+                }).done(function (response) {
+                    console.log("response is: " + response);
+
+                    for (i = 0; i < 10; i++) {
+                        console.log("i is: " + i);
+                        // Creating a div to hold the movie
+                        // var movieDiv = $("<div class='movie'>");
+                        var gifDiv = $("#gif-area");
+
+                        // Storing the rating data
+                        var rating = response.data[i].rating;
+
+                        // Creating an element to have the rating displayed
+                        var pOne = $("<p>").text("Rating: " + rating);
+
+                        // Displaying the rating
+                        gifDiv.append(pOne);
+
+                        // Retrieving the URL for the image
+                        var imgURL = response.data[i].images["fixed_height_still"].url;
+                        // var imgURL = response.data[i].images["fixed_height"].url;
+                        console.log(imgURL);
+
+                        // Creating an element to hold the image
+                        var image = $("<img>").attr("src", imgURL);
+
+                        // Appending the image
+                        gifDiv.append(image);
+
+                        // Putting the entire movie above the previous movies
+                        $("#gif-area").prepend(gifDiv);
+                    }
+                });
+            }
+
+            function renderButtons() {
+
+                // Deleting the buttons prior to adding new buttons
+                // (this is necessary otherwise we will have repeat buttons)
+                $("#button-area").empty();
+
+                for (var i = 0; i < topics.length; i++) {
+
+                    var a = $("<button>");
+                    // Adding a class
+                    a.addClass("topic");
+                    // Adding a data-attribute at index i
+                    a.attr("data-name", topics[i]);
+                    // Providing the button's text with a value at index i
+                    a.text(topics[i]);
+                    // Adding the button to the HTML
+                    $("#button-area").append(a);
+                }
+            }
+
+            // This function handles events where one button is clicked
+            $("#add-topic").on("click", function (event) {
+                // event.preventDefault() prevents the form from trying to submit itself.
+                // We're using a form so that the user can hit enter instead of clicking the button if they want
+                event.preventDefault();
+
+                // This line will grab the text from the input box
+                var topic = $("#topic-input").val().trim();
+                // The movie from the textbox is then added to our array
+                topics.push(topic);
+
+                // calling renderButtons which handles the processing of our movie array
+                renderButtons();
+            });
+
+            // this function switches between a still and animated gif...
+            // ..........................................................
 
 
-    // This function handles events where one button is clicked
-    $("#add-topic").on("click", function(event) {
-        // event.preventDefault() prevents the form from trying to submit itself.
-        // We're using a form so that the user can hit enter instead of clicking the button if they want
-        event.preventDefault();
 
-        // This line will grab the text from the input box
-        var topic = $("#topic-input").val().trim();
-        // The movie from the textbox is then added to our array
-        topics.push(topic);
 
-        // calling renderButtons which handles the processing of our movie array
-        renderButtons();
-      });
+            // create a click event listener for the gifs
+            $("#gif-area").on('click', function () {
+                // load the state of 'this' into a var
+                var current = $(this).attr('???')
+                // if var === still, switch states to animate
 
-      $(document).on("click", ".topic", displayGifs);
+            });
 
-      // Calling the renderButtons function at least once to display the initial list of movies
-      renderButtons();
+            // Calling the renderButtons function at least once to display the initial list of movies
+            renderButtons();
 
-  </script>
+        </script>
 
 </body>
 
