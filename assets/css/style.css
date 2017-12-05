@@ -31,11 +31,13 @@ label {
 }
 #topic-input{
     background-color: white;
-    padding: 7px;
+    padding: 1px 1px 1px 7px;
     border: 2px solid rgb(255, 255, 255);
     border-radius: 10px;
     margin: 10px;
     font-family: ringbearer;
+    font-size: 20px;
+    font-weight: bold;
 }
 #add-topic{
     background-color: white;
