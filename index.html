@@ -4,26 +4,28 @@
 <head>
     <meta charset="utf-8">
     <title>Giphy API</title>
-    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
 <body>
     <div id="button-area"></div>
-    <br>
+    <br><br>
 
     <form id="topics-form">
-        <label for="topic-input">GIF search:</label>
+        <label for="topic-input">Customize:</label>
         <input type="text" id="topic-input">
+        <input type="submit" id="add-topic" value = "Submit">
         <br>
         <div id="gif-area"></div>
-
+    </form>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script type="text/javascript">
             // Example queryURL for Giphy API
             // var queryURL = "https://api.giphy.com/v1/gifs/trending?api_key=dc6zaTOxFJmzC";
 
-            var topics = ["elf", "dwarf", "warrior", "wizard", "goblin", "orc", "ogre", "knight"];
+            var topics = ["dragon", "LOTR", "warrior", "wizard", "goblin", "orc", "ogre", "knight", "giant", "hobbit", "fairy", 'barbarian', 'warcraft', 'unicorn', 'pegasus', 'highlander', 'wyvern', 'medieval', 'zelda'];
 
             $(document).on("click", ".topic", displayGifs);
 
@@ -52,18 +54,18 @@
                         var pOne = $("<p>").text("Rating: " + rating);
 
                         // Displaying the rating
-                        gifDiv.append(pOne);
+                        // gifDiv.append(pOne);
 
                         // Retrieving the URL for the image
-                        var imgURL = response.data[i].images["fixed_height_still"].url;
-                        // var imgURL = response.data[i].images["fixed_height"].url;
+                        // var imgURL = response.data[i].images["fixed_height_still"].url;
+                        var imgURL = response.data[i].images["fixed_height"].url;
                         console.log(imgURL);
 
                         // Creating an element to hold the image
                         var image = $("<img>").attr("src", imgURL);
 
                         // Appending the image
-                        gifDiv.append(image);
+                        gifDiv.append(pOne, image);
 
                         // Putting the entire movie above the previous movies
                         $("#gif-area").prepend(gifDiv);
@@ -91,14 +93,16 @@
                 }
             }
 
-            // This function handles events where one button is clicked
+            // This function handles events where a user enters a new topic
             $("#add-topic").on("click", function (event) {
+                console.log("event is: " + event);
+                
                 // event.preventDefault() prevents the form from trying to submit itself.
                 // We're using a form so that the user can hit enter instead of clicking the button if they want
                 event.preventDefault();
 
                 // This line will grab the text from the input box
-                var topic = $("#topic-input").val().trim();
+                topic = $("#topic-input").val().trim();
                 // The movie from the textbox is then added to our array
                 topics.push(topic);
 

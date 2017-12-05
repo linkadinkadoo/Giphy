@@ -1,0 +1,61 @@
+@font-face{
+    font-family: ringbearer;
+    src: url(../RINGM___.TTF);
+  }
+body {
+    background-image: url("../images/woodTile.jpg");
+    
+}
+.topic{
+    background-color: #2B2623;
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 5px 10px 5px 10px;
+    margin: 10px;
+    text-align: center;
+    font-size: 20px;
+    color: white;
+    font-family: ringbearer;
+}
+label {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    font-weight: bold;
+    /* border: 2px solid white; */
+    border-radius: 10px;
+    padding: 5px;
+    color: white;
+    font-size: 20px;
+    text-shadow: 5px 5px 7px black;
+    font-family: ringbearer;
+}
+#topic-input{
+    background-color: white;
+    padding: 7px;
+    border: 2px solid rgb(255, 255, 255);
+    border-radius: 10px;
+    margin: 10px;
+    font-family: ringbearer;
+}
+#add-topic{
+    background-color: white;
+    padding: 5px;
+    border: 2px solid rgb(255, 255, 255);
+    border-radius: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    font-weight: bold;
+    margin: 10px, 10px, 10px, 10px;
+    font-family: ringbearer;
+}
+
+img{
+    float: left;
+    margin: 20px;
+}
+
+p {
+    float: left;
+    font-family: ringbearer;
+
+}
