@@ -66,13 +66,13 @@
 
                     // Retrieving the URL for the image
 
-                    var imgStill = response.data[i].images["fixed_height_still"].url;
-                    // var imgURL = response.data[i].images["fixed_height"].url;
+                    // var imgStill = response.data[i].images["fixed_height_still"].url;
+                    var imgURL = response.data[i].images["fixed_height"].url;
                     // console.log(imgURL);
 
                     // Creating an element to hold the image
-                    // var image = $("<img>").attr("src", imgURL);
-                    var image = $("<img>").attr("src", imgStill);
+                    var image = $("<img>").attr("src", imgURL);
+                    // var image = $("<img>").attr("src", imgStill);
 
                     // Appending the image
                     gifDiv.append(pOne);
