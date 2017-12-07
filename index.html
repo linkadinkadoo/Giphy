@@ -20,15 +20,6 @@
         <br>
         <br>
         <div id="gif-area"></div>
-        <div id="gif-area1"></div>
-        <div id="gif-area2"></div>
-        <div id="gif-area3"></div>
-        <div id="gif-area4"></div>
-        <div id="gif-area5"></div>
-        <div id="gif-area6"></div>
-        <div id="gif-area7"></div>
-        <div id="gif-area8"></div>
-        <div id="gif-area9"></div>
     </form>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -55,9 +46,10 @@
                 for (i = 0; i < 10; i++) {
                     console.log("i is: " + i);
 
-                    // Creating a div to hold the movie
-                    var gifDiv = $("#gif-area");
-
+                    // Creating a div to hold the gifs
+                    var gifContainer = $("#gif-area")
+                    var gifDiv = $("<div>");
+                    
                     // Storing the rating data
                     var rating = response.data[i].rating;
 
@@ -72,7 +64,7 @@
 
                     // Creating an element to hold the image
                     var image = $("<img>").attr("src", imgStill);
-                    image.attr("data-still");
+                    image.attr("data-still", imgStill);
                     image.attr("data-animate", imgURL);
                     image.attr("data-state", "still");
 
@@ -80,6 +72,7 @@
                     // Appending the image
                     gifDiv.append(pOne);
                     gifDiv.append(image);
+                    gifContainer.append(gifDiv);
                 }
 
                 $("img").on("click", function () {
@@ -94,7 +87,7 @@
                         $(this).attr("src", $(this).attr("data-animate"));
                         $(this).attr("data-state", "animate");
                     } else {
-                        debugger
+                        // debugger
                         $(this).attr("src", $(this).attr("data-still"));
                         $(this).attr("data-state", "still");
                     }
