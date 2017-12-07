@@ -20,6 +20,15 @@
         <br>
         <br>
         <div id="gif-area"></div>
+        <div id="gif-area1"></div>
+        <div id="gif-area2"></div>
+        <div id="gif-area3"></div>
+        <div id="gif-area4"></div>
+        <div id="gif-area5"></div>
+        <div id="gif-area6"></div>
+        <div id="gif-area7"></div>
+        <div id="gif-area8"></div>
+        <div id="gif-area9"></div>
     </form>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -45,8 +54,8 @@
 
                 for (i = 0; i < 10; i++) {
                     console.log("i is: " + i);
+
                     // Creating a div to hold the movie
-                    // var movieDiv = $("<div class='movie'>");
                     var gifDiv = $("#gif-area");
 
                     // Storing the rating data
@@ -66,18 +75,21 @@
                     var image = $("<img>").attr("src", imgStill);
 
                     // Appending the image
-                    gifDiv.append(pOne, image);
+                    gifDiv.append(pOne);
+                    gifDiv.append(image);
                 }
             });
         }
 
-
+        var state = true;
 
         $(document).on("click", "img", function () {
             console.log("image was clicked");
             // The attr jQuery method allows us to get or set the value of any attribute on our HTML element
-            var state = $(this).attr("");
-            console.log(this);
+            
+            if (state = true){
+
+            }
             // If the clicked image's state is still, update its src attribute to what its data-animate value is.
             // if 
             // Then, set the image's data-state to animate

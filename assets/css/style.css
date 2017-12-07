@@ -52,12 +52,15 @@ label {
 }
 
 img{
-    float: left;
+    /* float: left; */
     margin: 20px;
 }
 
 p {
-    float: left;
+    /* float: left; */
     font-family: ringbearer;
-
+    padding-left: 20px;
+    text-shadow: 1px 1px 3px white;
+    font-size: 17px;
+    font-weight: bold;
 }
